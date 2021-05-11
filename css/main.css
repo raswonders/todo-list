@@ -1,0 +1,27 @@
+.main-box {
+    width: 600px;
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.text-box {
+    display: flex;
+    width: 100%;
+}
+
+.text-bar {
+    flex-grow: 1;
+    border-right: 0px;
+    margin: 0;
+}
+
+.btn-add-item {
+    margin-left: -1px;
+}
+
+.btn-remove-item {
+    margin-top: 3em;
+    display: block;
+}
