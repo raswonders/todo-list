@@ -119,3 +119,40 @@ body {
     font-size: inherit;
     border-radius: var(--borderRadius);
 }
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.task {
+    padding: 0.5 rem;
+    display: flex;
+}
+
+.task i {
+    margin: 0 0.2rem;
+}
+
+.task-msg {
+    padding: 0.5rem;
+    flex-grow: 1;
+}
+
+.task-icons {
+    padding: 0.3rem;
+
+}
+
+.fa-check-circle {
+    color: var(--success);
+}
+
+.fa-edit {
+    color: var(--info);
+}
+
+.fa-times-circle {
+    color: var(--danger);
+}
