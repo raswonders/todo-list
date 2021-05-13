@@ -63,7 +63,7 @@ body {
     align-items: center;
 }
 
-.text-box {
+.task-form {
     display: flex;
     width: 100%;
 }
