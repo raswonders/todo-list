@@ -2,7 +2,9 @@
     const textBarDOM = document.querySelector('.text-bar')
     const taskFormDOM = document.querySelector('.task-form')
     const taskListDOM = document.querySelector('.task-list')
-    var taskList = []
+    const clearBtnDOM = document.querySelector('.btn-remove-item')
+
+    var tasksList = []
 
     function Task(msg) {
         this.done = false;
@@ -17,7 +19,15 @@
         taskListDOM.innerHTML = ""
     }
 
+    function clearTasksList() {
+        tasksList = []
+    }
+
     function displayTasks(tasks) {
+        if (tasks.length == 0) {
+            clearTasksDOM()
+        }
+
         for (let t of tasks) {
             const el = document.createElement('li')
             const icons = []
@@ -46,8 +56,13 @@
         let msgTitleCase = textBarDOM.value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
 
         clearTasksDOM()
-        taskList.push(new Task(msgTitleCase))
+        tasksList.push(new Task(msgTitleCase))
         clearTextBarDOM()
-        displayTasks(taskList)
+        displayTasks(tasksList)
+    })
+
+    clearBtnDOM.addEventListener('click', function clearAll() {
+        clearTasksList()
+        clearTasksDOM()
     })
 })();
