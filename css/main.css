@@ -156,3 +156,8 @@ body {
 .fa-times-circle {
     color: var(--danger);
 }
+
+.done {
+    text-decoration: line-through;
+    color: var(--gray);
+}
