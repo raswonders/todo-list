@@ -1,4 +1,4 @@
-(function() {
+(function () {
     const textBarDOM = document.querySelector('.text-bar')
     const taskFormDOM = document.querySelector('.task-form')
     const taskListDOM = document.querySelector('.task-list')
@@ -23,13 +23,20 @@
         tasksList = []
     }
 
-    function displayTasks(tasks) {
-        if (tasks.length == 0) {
-            clearTasksDOM()
-        }
+    function createAwesomeIcon(classes) {
+        let icon = createElemenet('i')
+        icon.classList.add(...classes)
+    }
 
-        for (let t of tasks) {
+    function displayTasks(tasks) {
+        clearTasksDOM()
+
+        tasks.forEach(function (t, i) {
             const el = document.createElement('li')
+            let checkIcon = document.createElement('i')
+            checkIcon.classList.add('far')
+
+
             const icons = []
             icons.push('<i class="far fa-check-circle"></i>')
             icons.push('<i class="far fa-edit"></i>')
@@ -37,16 +44,26 @@
             let linkedIcons = ""
             let iconBox = ""
             for (let i of icons) {
-               linkedIcons += `<a class="icon-link" href="#">${i}</a>`
+                linkedIcons += `<a class="icon-link" href="#">${i}</a>`
             }
             iconBox = `<div class="task-icons">${linkedIcons}</div>`
             el.innerHTML = `<div class="task-msg">${t.msg}</div>${iconBox}`
+            el.dataset.taskIndex = i
             el.classList.add("task")
             if (t.done) {
                 el.classList.add("done")
             }
+            addIconListeners(el)
             taskListDOM.appendChild(el)
-        }
+        })
+    }
+
+    function addIconListeners(element) {
+        // Delete handler
+        element.querySelector('.fa-times-circle').addEventListener('click', function deleteTask(e) {
+            tasksList.splice(e.target.closest('li').dataset.taskIndex, 1)
+            displayTasks(tasksList)
+        })
     }
 
     taskFormDOM.addEventListener('submit', function addTask(e) {
