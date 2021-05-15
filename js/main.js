@@ -6,7 +6,7 @@
 
     var editing = false
 
-    var tasksList = []
+    var tasksList;
 
     function Task(msg) {
         this.done = false;
@@ -56,6 +56,13 @@
     }
 
     function addIconListeners(element) {
+        // Scratch task
+        element.querySelector('.fa-check-circle').addEventListener('click', function deleteTask(e) {
+            let task = tasksList[e.target.closest('li').dataset.taskIndex]
+            task.done = ! task.done
+            displayTasks(tasksList)
+        })
+
         // Delete task
         element.querySelector('.fa-times-circle').addEventListener('click', function deleteTask(e) {
             tasksList.splice(e.target.closest('li').dataset.taskIndex, 1)
@@ -73,7 +80,7 @@
             editing = true
 
             let task = e.target.closest('li')
-            textBarDOM.value =  task.querySelector('.task-msg').textContent
+            textBarDOM.value = task.querySelector('.task-msg').textContent
             textBarDOM.focus()
             tasksList.splice(task.dataset.taskIndex, 1)
             displayTasks(tasksList)
@@ -98,5 +105,21 @@
     clearBtnDOM.addEventListener('click', function clearAll() {
         clearTasksList()
         clearTasksDOM()
+    })
+
+    window.addEventListener('beforeunload', function saveTasksList(e) {
+        localStorage.setItem('tasks', JSON.stringify(tasksList))
+    })
+
+    window.addEventListener('load', function loadTasksList(e) {
+        // Init tasksList
+        tasksJSON = localStorage.getItem('tasks')
+        if (tasksJSON) {
+            tasksList = JSON.parse(tasksJSON)
+        } else {
+            tasksList = []
+        }
+
+        displayTasks(tasksList)
     })
 })();
