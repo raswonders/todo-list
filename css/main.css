@@ -136,12 +136,17 @@ body {
     margin: 0 0.2rem;
 }
 
+.task i:hover {
+    color: black;
+}
+
 .task-msg {
     padding: 0.5rem;
     flex-grow: 1;
 }
 
 .task-icons {
+    font-size: 16px;
     padding: 0.3rem;
     display: flex;
     flex-flow: nowrap;
