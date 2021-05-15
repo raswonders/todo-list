@@ -4,6 +4,8 @@
     const taskListDOM = document.querySelector('.task-list')
     const clearBtnDOM = document.querySelector('.btn-remove-item')
 
+    var editing = false
+
     var tasksList = []
 
     function Task(msg) {
@@ -21,11 +23,6 @@
 
     function clearTasksList() {
         tasksList = []
-    }
-
-    function createAwesomeIcon(classes) {
-        let icon = createElemenet('i')
-        icon.classList.add(...classes)
     }
 
     function displayTasks(tasks) {
@@ -59,15 +56,35 @@
     }
 
     function addIconListeners(element) {
-        // Delete handler
+        // Delete task
         element.querySelector('.fa-times-circle').addEventListener('click', function deleteTask(e) {
             tasksList.splice(e.target.closest('li').dataset.taskIndex, 1)
+            displayTasks(tasksList)
+        })
+
+        // Update task
+        element.querySelector('.fa-edit').addEventListener('click', function editTask(e) {
+            // if in edit mode already, submit the task before editing new one
+            if (editing) {
+                taskFormDOM.requestSubmit()
+            }
+
+            // set state
+            editing = true
+
+            let task = e.target.closest('li')
+            textBarDOM.value =  task.querySelector('.task-msg').textContent
+            textBarDOM.focus()
+            tasksList.splice(task.dataset.taskIndex, 1)
             displayTasks(tasksList)
         })
     }
 
     taskFormDOM.addEventListener('submit', function addTask(e) {
         e.preventDefault()
+
+        // set state
+        editing = false
 
         // converts textBar value to Title Case
         let msgTitleCase = textBarDOM.value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
