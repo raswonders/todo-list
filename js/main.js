@@ -3,6 +3,7 @@
     const taskFormDOM = document.querySelector('.task-form')
     const taskListDOM = document.querySelector('.task-list')
     const clearBtnDOM = document.querySelector('.btn-remove-item')
+    const formPopupDOM = document.querySelector('.form-popup')
 
     var editing = false
 
@@ -56,8 +57,8 @@
     }
 
     function addIconListeners(element) {
-        // Scratch task
-        element.querySelector('.fa-check-circle').addEventListener('click', function deleteTask(e) {
+        // Mark task done
+        element.querySelector('.fa-check-circle').addEventListener('click', function markTaskDone(e) {
             let task = tasksList[e.target.closest('li').dataset.taskIndex]
             task.done = ! task.done
             displayTasks(tasksList)
@@ -87,11 +88,31 @@
         })
     }
 
+    function textBarIsEmpty() {
+        return ! Boolean(textBarDOM.value)
+    }
+
+    function displayError() {
+        formPopupDOM.classList.add('show')
+    }
+
+    function removeError() {
+        formPopupDOM.classList.remove('show')
+    }
+
+
     taskFormDOM.addEventListener('submit', function addTask(e) {
         e.preventDefault()
 
+
+        if (textBarIsEmpty()) {
+            displayError()
+            return
+        }
+
         // set state
         editing = false
+        removeError()
 
         // converts textBar value to Title Case
         let msgTitleCase = textBarDOM.value.replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));

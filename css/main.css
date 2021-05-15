@@ -17,6 +17,7 @@
     --success: #28a745;
     --info: #17a2b8;
     --warning: #ffc107;
+    --warning-form: #fe7389;
     --danger: #dc3545;
     --light: #f8f9fa;
     --dark: #343a40;
@@ -64,6 +65,7 @@ body {
 }
 
 .task-form {
+    position: relative;
     display: flex;
     width: 100%;
 }
@@ -127,7 +129,7 @@ body {
 }
 
 .task {
-    padding: 0.5 rem;
+    padding: 0.5rem;
     display: flex;
 }
 
@@ -160,4 +162,30 @@ body {
 .done {
     text-decoration: line-through;
     color: var(--gray);
+}
+
+.form-popup {
+    visibility: hidden;
+    background-color: var(--warning-form);
+    color: var(--mainBlack);
+    position: absolute;
+    bottom: 125%;
+    margin-bottom: -1px;
+    left: 0;
+    padding: 0.2rem;
+    border-radius: var(--borderRadius)
+}
+
+.form-popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 25%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--warning-form) transparent transparent;
+}
+
+.show {
+    visibility: visible;
 }
