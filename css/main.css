@@ -129,7 +129,6 @@ body {
 }
 
 .task {
-    padding: 0.5rem;
     display: flex;
 }
 
@@ -144,7 +143,8 @@ body {
 
 .task-icons {
     padding: 0.3rem;
-
+    display: flex;
+    flex-flow: nowrap;
 }
 
 .fa-check-circle {
